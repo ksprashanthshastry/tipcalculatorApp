@@ -5,6 +5,7 @@ import Dollar from "./components/DollarSVG";
 import "./App.css";
 import PersonSVG from "./components/PersonSVG";
 import Label from "./components/Label";
+import { useEffect } from "react/cjs/react.development";
 
 function App() {
   const [input, setInput] = useState({
@@ -29,35 +30,42 @@ function App() {
       setValue(false);
     }
     setInput((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
+      return { ...prev, [name]: value };
     });
   };
+  let totalTipPerPerson;
+  let totalPerPerson;
 
   function handleClick(event) {
     const { name } = event.target;
     const { bill, numberOfPeople, buttonInput } = input;
     const total = bill / numberOfPeople;
-    let totalTipPerPerson;
-    let totalPerPerson;
+    let totallBill;
 
     if (name === "buttonInput") {
-      totalTipPerPerson = total * (buttonInput.toString() / 100);
-      totalPerPerson = total + totalTipPerPerson;
+      totallBill = bill * (buttonInput.toString() / 100);
     } else {
-      totalTipPerPerson = total * (name / 100);
-      totalPerPerson = total + totalTipPerPerson;
+      totallBill = bill * (name / 100);
     }
-    setAmount((prev) => {
-      return {
-        ...prev,
-        tip: totalTipPerPerson,
-        total: totalPerPerson,
-      };
-    });
+
+    totalTipPerPerson = totallBill / numberOfPeople;
+    totalPerPerson = totalTipPerPerson + total;
+
+    console.log(totalTipPerPerson, totalPerPerson);
   }
+
+  console.log(totalTipPerPerson);
+  // useEffect(() => {
+  //   if (input.numberOfPeople.length !== 0) {
+  //     setAmount((prev) => {
+  //       return {
+  //         ...prev,
+  //         tip: totalTipPerPerson,
+  //         total: totalPerPerson,
+  //       };
+  //     });
+  //   }
+  // }, [input.numberOfPeople]);
 
   function reset() {
     setAmount("");
