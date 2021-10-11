@@ -5,9 +5,10 @@ function Button({ click }) {
 
   return (
     <>
-      {buttonValue.map((button) => {
+      {buttonValue.map((button, index) => {
         return (
           <button
+            key={index}
             className="tip-btn btn"
             onClick={() => {
               click(button);

@@ -54,14 +54,14 @@ function App() {
         ? (totalTip = bill * (btnValue / 100))
         : (totalTip = bill * (buttonInput / 100));
 
-      totalTipPerPerson = (totalTip / numberOfPeople).toFixed(2);
-      totalPerPerson = (totalTipPerPerson + billPerPerson).toFixed(2);
+      totalTipPerPerson = totalTip / numberOfPeople;
+      totalPerPerson = totalTipPerPerson + billPerPerson;
 
       setAmount((prev) => {
         return {
           ...prev,
-          tip: totalTipPerPerson,
-          total: totalPerPerson,
+          tip: totalTipPerPerson.toFixed(2),
+          total: totalPerPerson.toFixed(2),
         };
       });
     }
@@ -90,7 +90,7 @@ function App() {
       <section className="tip-calculator-container">
         <div className="calculation-section calculation-section-no-color">
           <div className="small-container">
-            <Label className="label" forID="bill" name="Bill" />
+            <Label className="label" refd="bill" name="Bill" />
 
             <Input
               className="input-values"
@@ -122,7 +122,7 @@ function App() {
           <div className="small-container">
             <Label
               className={"label"}
-              forID={"people"}
+              refd={"people"}
               name={"Number of People"}
             />
             <span className="warning">{valueLessThanZer0 && "Can't be 0"}</span>
