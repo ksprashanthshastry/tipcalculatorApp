@@ -40,6 +40,11 @@ function App() {
 
   const update = (value) => {
     setBtnValue(value);
+    setTipBtnClick(true);
+  };
+
+  const updateBtn = () => {
+    setTipBtnClick(false);
   };
 
   useEffect(() => {
@@ -50,9 +55,11 @@ function App() {
       let billPerPerson = bill / numberOfPeople;
       let totalTip;
 
-      tipBtnClick === true
+      tipBtnClick
         ? (totalTip = bill * (btnValue / 100))
         : (totalTip = bill * (buttonInput / 100));
+
+      // tipBtnClick ? setTipBtnClick(false) : setTipBtnClick(true);
 
       totalTipPerPerson = totalTip / numberOfPeople;
       totalPerPerson = totalTipPerPerson + billPerPerson;
@@ -66,12 +73,6 @@ function App() {
       });
     }
   }, [input, btnValue, tipBtnClick]);
-
-  const updateBtn = () => {
-    setTipBtnClick((prev) => {
-      return !prev;
-    });
-  };
 
   function reset() {
     setAmount("");
@@ -105,12 +106,13 @@ function App() {
 
           <div className="small-container">
             <Label className="label" name="Select Tip %" />
-            <div className="tip-button-container" onClick={updateBtn}>
+            <div className="tip-button-container">
               <Button click={update} />
 
               <Input
                 type="number"
                 className={" custom-btn input-values btn"}
+                onClick={updateBtn}
                 onChange={inputChange}
                 name="buttonInput"
                 placeholder="Custom"
