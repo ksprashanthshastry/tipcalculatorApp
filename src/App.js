@@ -5,7 +5,9 @@ import Dollar from "./components/DollarSVG";
 import "./App.css";
 import PersonSVG from "./components/PersonSVG";
 import Label from "./components/Label";
+import Button from "./components/Button";
 import { useEffect } from "react/cjs/react.development";
+// import { useEffect } from "react/cjs/react.development";
 
 function App() {
   const [input, setInput] = useState({
@@ -14,12 +16,14 @@ function App() {
     buttonInput: "",
   });
 
+  const [btnValue, setBtnValue] = useState("");
   const [amount, setAmount] = useState({
     tip: "",
     total: "",
   });
 
   const [valueLessThanZer0, setValue] = useState(false);
+  const [tipBtnClick, setTipBtnClick] = useState(false);
 
   const inputChange = (event) => {
     const { name, value } = event.target;
@@ -29,43 +33,46 @@ function App() {
     } else {
       setValue(false);
     }
+
     setInput((prev) => {
       return { ...prev, [name]: value };
     });
   };
-  let totalTipPerPerson;
-  let totalPerPerson;
 
-  function handleClick(event) {
-    const { name } = event.target;
-    const { bill, numberOfPeople, buttonInput } = input;
-    const total = bill / numberOfPeople;
-    let totallBill;
+  const update = (value) => {
+    setBtnValue(value);
+  };
 
-    if (name === "buttonInput") {
-      totallBill = bill * (buttonInput.toString() / 100);
-    } else {
-      totallBill = bill * (name / 100);
+  useEffect(() => {
+    if (input.numberOfPeople.length !== 0) {
+      let totalTipPerPerson;
+      let totalPerPerson;
+      const { bill, numberOfPeople, buttonInput } = input;
+      let billPerPerson = bill / numberOfPeople;
+      let totalTip;
+
+      tipBtnClick === true
+        ? (totalTip = bill * (btnValue / 100))
+        : (totalTip = bill * (buttonInput / 100));
+
+      totalTipPerPerson = totalTip / numberOfPeople;
+      totalPerPerson = totalTipPerPerson + billPerPerson;
+
+      setAmount((prev) => {
+        return {
+          ...prev,
+          tip: totalTipPerPerson,
+          total: totalPerPerson,
+        };
+      });
     }
+  }, [input, btnValue, tipBtnClick]);
 
-    totalTipPerPerson = totallBill / numberOfPeople;
-    totalPerPerson = totalTipPerPerson + total;
-
-    console.log(totalTipPerPerson, totalPerPerson);
-  }
-
-  console.log(totalTipPerPerson);
-  // useEffect(() => {
-  //   if (input.numberOfPeople.length !== 0) {
-  //     setAmount((prev) => {
-  //       return {
-  //         ...prev,
-  //         tip: totalTipPerPerson,
-  //         total: totalPerPerson,
-  //       };
-  //     });
-  //   }
-  // }, [input.numberOfPeople]);
+  const updateBtn = () => {
+    setTipBtnClick((prev) => {
+      return !prev;
+    });
+  };
 
   function reset() {
     setAmount("");
@@ -99,47 +106,13 @@ function App() {
 
           <div className="small-container">
             <Label className="label" name="Select Tip %" />
-            <div className="tip-button-container">
-              <Input
-                type="button"
-                className="tip-btn btn"
-                onClick={handleClick}
-                value="5%"
-                name="5"
-              />
-              <Input
-                type="button"
-                className="tip-btn btn"
-                onClick={handleClick}
-                value="10%"
-                name="10"
-              />
-              <Input
-                type="button"
-                className="tip-btn btn"
-                onClick={handleClick}
-                name="15"
-                value="15%"
-              />
-              <Input
-                type="button"
-                className="tip-btn btn"
-                onClick={handleClick}
-                name="25"
-                value="25%"
-              />
-              <Input
-                type="button"
-                className="tip-btn btn"
-                onClick={handleClick}
-                name="30"
-                value="30%"
-              />
+            <div className="tip-button-container" onClick={updateBtn}>
+              <Button click={update} />
+
               <Input
                 type="number"
                 className={" custom-btn input-values btn"}
                 onChange={inputChange}
-                onClick={handleClick}
                 name="buttonInput"
                 placeholder="Custom"
                 value={input.buttonInput}
@@ -157,7 +130,6 @@ function App() {
             <input
               className="input-values"
               id="people"
-              onClick={handleClick}
               onChange={inputChange}
               value={input.numberOfPeople}
               type="number"
@@ -166,9 +138,8 @@ function App() {
             ></input>
             <PersonSVG />
           </div>
-
-          {/* <button type="submit" onClick={submitResult}></button> */}
         </div>
+
         <div className="calculation-section">
           <div className="small-container total-col">
             <p>Tip Amount / person</p>
