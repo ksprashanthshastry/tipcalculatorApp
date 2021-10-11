@@ -54,8 +54,8 @@ function App() {
         ? (totalTip = bill * (btnValue / 100))
         : (totalTip = bill * (buttonInput / 100));
 
-      totalTipPerPerson = totalTip / numberOfPeople;
-      totalPerPerson = totalTipPerPerson + billPerPerson;
+      totalTipPerPerson = (totalTip / numberOfPeople).toFixed(2);
+      totalPerPerson = (totalTipPerPerson + billPerPerson).toFixed(2);
 
       setAmount((prev) => {
         return {
