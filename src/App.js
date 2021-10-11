@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import Header from "./components/Header";
 import Input from "./components/Input";
 import Dollar from "./components/DollarSVG";
@@ -6,8 +7,6 @@ import "./App.css";
 import PersonSVG from "./components/PersonSVG";
 import Label from "./components/Label";
 import Button from "./components/Button";
-import { useEffect } from "react/cjs/react.development";
-// import { useEffect } from "react/cjs/react.development";
 
 function App() {
   const [input, setInput] = useState({
