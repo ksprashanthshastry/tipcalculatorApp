@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Button({ click }) {
   const buttonValue = [5, 10, 15, 25, 30];
