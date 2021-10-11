@@ -9,6 +9,7 @@ function Input({
   onChange,
   id,
   placeholder,
+  style,
 }) {
   return (
     <input
@@ -19,6 +20,7 @@ function Input({
       name={name}
       onChange={onChange}
       id={id}
+      style={style}
       placeholder={placeholder}
     />
   );

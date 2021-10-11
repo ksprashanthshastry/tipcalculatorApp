@@ -23,6 +23,7 @@ function App() {
 
   const [valueLessThanZer0, setValue] = useState(false);
   const [tipBtnClick, setTipBtnClick] = useState(false);
+  const [updateStyle, setUpdateStyle] = useState(false);
 
   const inputChange = (event) => {
     const { name, value } = event.target;
@@ -38,13 +39,15 @@ function App() {
     });
   };
 
+  const updateCustomBtn = () => {
+    setTipBtnClick(false);
+    setUpdateStyle(true);
+  };
+
   const update = (value) => {
     setBtnValue(value);
     setTipBtnClick(true);
-  };
-
-  const updateBtn = () => {
-    setTipBtnClick(false);
+    setUpdateStyle(false);
   };
 
   useEffect(() => {
@@ -58,8 +61,6 @@ function App() {
       tipBtnClick
         ? (totalTip = bill * (btnValue / 100))
         : (totalTip = bill * (buttonInput / 100));
-
-      // tipBtnClick ? setTipBtnClick(false) : setTipBtnClick(true);
 
       totalTipPerPerson = totalTip / numberOfPeople;
       totalPerPerson = totalTipPerPerson + billPerPerson;
@@ -111,8 +112,11 @@ function App() {
 
               <Input
                 type="number"
-                className={" custom-btn input-values btn"}
-                onClick={updateBtn}
+                style={{
+                  backgroundColor: updateStyle ? "#d5ece9" : "#59c7a6",
+                }}
+                className={"custom-btn input-values btn"}
+                onClick={updateCustomBtn}
                 onChange={inputChange}
                 name="buttonInput"
                 placeholder="Custom"
@@ -141,18 +145,24 @@ function App() {
           </div>
         </div>
 
-        <div className="calculation-section">
-          <div className="small-container total-col">
-            <p>Tip Amount / person</p>
+        <div className="calculation-section calculation-section-color">
+          <div className="small-container tip-button-container total-col">
+            <p>
+              Tip Amount<span className="small-text">/person</span>
+            </p>
             <h2>${amount.tip}</h2>
           </div>
-          <div className="small-container total-col">
-            <p>Total Amount / person</p>
+          <div className="small-container tip-button-container total-col">
+            <p>
+              Total Amount<span className="small-text">/person</span>
+            </p>
             <h2>${amount.total}</h2>
           </div>
-          <button className="reset-btn btn" onClick={reset}>
-            RESET
-          </button>
+          <div className="small-container tip-button-container total-col reset-btn">
+            <button className="btn" onClick={reset}>
+              RESET
+            </button>
+          </div>
         </div>
       </section>
     </div>

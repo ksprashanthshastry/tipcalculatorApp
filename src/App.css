@@ -6,44 +6,49 @@
   font-family: "space mono";
 }
 
+body {
+  background-color: #d5ece9;
+}
+
 .main-container {
   position: absolute;
-  display: block;
-  align-content: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: #b5dcd7;
 }
 header {
   position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
-  top: 8%;
+  top: 5%;
 }
 
 .tip-calculator-container {
   position: relative;
-  top: 15%;
-  margin: auto;
-  width: 100%;
-  height: 500px;
-  background-color: #fff;
-  border-radius: 20px;
+  top: 10%;
   display: grid;
+  margin: 0;
   grid-template-columns: 100%;
+  border-radius: 20px 20px 0 0;
+  background-color: #fff;
 }
 
 .calculation-section {
-  border-radius: 20px 20px 0 0;
-  padding: 2em;
+  border-radius: 20px;
   background-color: #00494d;
+  margin: 0.75em;
+  padding: 0.75em;
+}
+
+.calculation-section-color {
+  margin: 0 2em 2em 2em;
+  padding: 1.5em;
 }
 
 .calculation-section-no-color {
   background-color: #fff;
-  margin: auto 10px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .input-icon {
@@ -53,6 +58,22 @@ header {
   left: 1em;
 }
 
+.small-text {
+  display: flex;
+  justify-items: start;
+  font-weight: 400;
+  font-size: 10px;
+  color: #d5ece9;
+}
+h2 {
+  text-align: right;
+}
+
+p,
+h2 {
+  color: #59c7a6;
+  font-weight: 700;
+}
 .label {
   position: relative;
   height: auto;
@@ -61,21 +82,14 @@ header {
 
 .small-container {
   position: relative;
-  margin: 10px;
-  height: auto;
+  margin: auto;
+  width: 100%;
   padding: 10px;
-}
-
-.total-col {
-  display: flex;
-  justify-content: space-between;
-  margin: 50px 30px;
-  color: #b5dcd7;
 }
 
 .input-values {
   width: 100%;
-  background-color: #e3e3e3;
+  background-color: #e7f3f1;
   border: 0;
   padding: 10px;
   border-radius: 5px;
@@ -95,12 +109,12 @@ header {
 }
 .tip-button-container {
   display: grid;
-  grid-template-columns: 50% 50%;
-  gap: 10px 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-items: center;
 }
 
 .custom-btn {
-  background-color: #b5dcd7;
   color: #00494d;
   text-align: center;
 }
@@ -110,61 +124,113 @@ header {
   color: #00494d;
 }
 .custom-btn:hover {
-  background-color: #eee;
+  background-color: #d5ece9;
   color: #00494d;
   transition: all 0.5s;
 }
 
 .warning {
   color: red;
-  font-size: smaller;
+  font-size: 10px;
   display: block;
   float: right;
 }
 
 .btn {
-  padding: 10px;
+  padding: 0.8em;
   border-radius: 8px;
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 1em;
+  border: none;
 }
 
 .tip-btn {
   background-color: #00494d;
-  color: #b5dcd7;
+  color: #59c7a6;
 }
 
 .tip-btn:hover {
-  background-color: #b5dcd7;
+  background-color: #59c7a6;
   color: #00494d;
   transition: all 0.5s;
 }
 .reset-btn {
-  display: block;
-  margin: auto;
-  width: 80%;
-  background-color: #b5dcd7;
+  grid-template-columns: 1fr;
+}
+
+.reset-btn button {
+  background-color: #59c7a6;
   color: #00494d;
   border: 0;
 }
 
-.reset-btn:hover {
-  background-color: #ccc;
+.active {
+  background-color: #d5ece9;
   color: #00494d;
-  transition: all 0.5s;
 }
 
 @media (min-width: 600px) {
   .tip-calculator-container {
-    width: 70%;
-    grid-template-columns: 50% 50%;
+    width: 60%;
+    padding: 1.5em;
+    height: auto;
+    position: relative;
+    top: 20%;
+    gap: 15px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 20px;
+    grid-template-columns: repeat(2, 1fr);
   }
-
+  header {
+    top: 10%;
+  }
   .calculation-section {
     border-radius: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .calculation-section-color {
+    margin: 0 1em 0 0;
+    padding: 0.75em;
   }
 
   .tip-button-container {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .total-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btn {
+    padding: 1.2em;
+  }
+
+  .reset-btn {
+    grid-template-columns: 1fr;
+  }
+
+  .reset-btn button:hover {
+    background-color: #d5ece9;
+    color: #00494d;
+    transition: all 0.5s;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .tip-calculator-container {
+    width: 80%;
+  }
+
+  .btn {
+    padding: 0.8em;
+    font-size: 1em;
+  }
+
+  .calculation-section-color {
+    margin: 0;
+    padding: 0.75em;
   }
 }
